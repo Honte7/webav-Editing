@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>视频剪辑工具</title>
+  <style>#app {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    
+    .video-container {
+      position: relative;
+      background: #000;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    video {
+      width: 100%;
+      max-height: 500px;
+    }
+    
+    .controls-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 30px 0;
+    }
+    
+    .point-control {
+      padding: 20px;
+      background: #f7f7f7;
+      border-radius: 8px;
+    }
+    
+    .point-control h2 {
+      margin-top: 0;
+      color: #444;
+    }
+    
+    .point-inputs {
+      display: flex;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    
+    input[type="number"] {
+      width: 120px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .timeline {
+      height: 60px;
+      background: #444;
+      position: relative;
+      margin: 20px 0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .timeline-marker {
+      position: absolute;
+      height: 100%;
+      width: 4px;
+      background: #ff5a5a;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .timeline-marker::after {
+      content: attr(data-time);
+      position: absolute;
+      top: -25px;
+      left: -10px;
+      background: #ff5a5a;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    button {
+      padding: 12px 24px;
+      background: #0a84ff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+    
+    button:hover {
+      background: #0069d9;
+    }
+    
+    button#exportBtn {
+      background: #34c759;
+    }
+    
+    button#exportBtn:hover {
+      background: #2a9d4a;
+    }</style>
+</head>
+<body>
+  <div id="app">
+    <h1>视频剪辑工具</h1>
+    
+    <!-- 单个视频预览窗口 -->
+    <div class="video-container">
+      <video id="sourceVideo" controls=""></video>
+    </div>
+    
+    <div class="controls-wrapper">
+      <!-- 开始点控制 -->
+      <div class="point-control">
+        <h2>剪辑起点</h2>
+        <div class="point-inputs">
+          <input type="number" id="startInput" min="0" step="0.1" placeholder="开始时间(秒)">
+          <button id="startBtn">设为起点</button>
+        </div>
+      </div>
+      
+      <!-- 结束点控制 -->
+      <div class="point-control">
+        <h2>剪辑终点</h2>
+        <div class="point-inputs">
+          <input type="number" id="endInput" min="0" step="0.1" placeholder="结束时间(秒)">
+          <button id="endBtn">设为终点</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 可视化时间轴 -->
+    <div class="timeline" id="timeline">
+      <div id="timelineMarkers"></div>
+      <div class="timeline-marker" id="startMarker" style="display: none;" data-time="起点"></div>
+      <div class="timeline-marker" id="endMarker" style="display: none;" data-time="终点"></div>
+    </div>
+    
+    <!-- 功能区 -->
+    <div class="actions">
+      <button id="previewBtn">预览片段</button>
+      <button id="exportBtn">导出剪辑</button>
+    </div>
+    
+    <!-- 状态指示器 -->
+    <div id="status" style="margin-top: 20px; text-align: center;"></div>
+  </div>
+
+  <script src="/main.1f19ae8e.js"></script>
+</body>
+</html>
